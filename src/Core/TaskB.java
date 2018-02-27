@@ -19,7 +19,7 @@ public class TaskB extends MonteCarlo{
     boolean doMonteCarlo() {
         int carDoor = generateCarDoor();
         int firstChoice = generateFirstChoice();
-        int animalDoor = generateAnimalDoor(carDoor);
+        int animalDoor = openAnimalDoor(carDoor, firstChoice);
         int secondChoice = generateSecondChoice(animalDoor, firstChoice);
         return carDoor == secondChoice;
     }

@@ -18,8 +18,8 @@ public class test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        TaskA a = new TaskA(100000, 10);      
-        TaskB b = new TaskB(100000, 10);
+        TaskA a = new TaskA(10000000, 3);      
+        TaskB b = new TaskB(10000000, 3);
     }
     
 }
