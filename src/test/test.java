@@ -17,7 +17,7 @@ public class test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Core core = new Core();
+        Core core = new Core(1000000,3);
     }
     
 }

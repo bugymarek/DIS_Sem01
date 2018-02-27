@@ -10,16 +10,26 @@ package Core;
  * @author Bugy
  */
 public abstract class Replications {
-
-    public double doReprications(int count) {
-        int countTrue = 0;
-        for (int i = 0; i < count; i++) {
+    private double currentProbability; 
+   
+    public Replications(){
+        this.currentProbability = 0;
+    }
+    
+    public double doReprications(double count) {
+        double countTrue = 0;
+        for (double i = 1; i <= count; i++) {
             if (doMonteCarlo()) {
                 countTrue++;
             }
+            this.currentProbability = countTrue/i;
         }
        return countTrue/count;
     }
 
+    public double getCurrentProbability() {
+        return currentProbability;
+    }
+    
     abstract boolean doMonteCarlo();
 }
