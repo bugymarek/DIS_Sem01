@@ -5,36 +5,26 @@
  */
 package Core;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
  *
  * @author Bugy
  */
-public class Core extends Replications {
+public abstract class MonteCarlo extends Replications{
     private Random generatorSeed;
     private Random generatorCar;
     private Random generatorFirstChoice;
     private Random generatorAnimalDoor;
     private Random generatorSecondChoice;
-    private int Doors;
+    private final int Doors;
     
-    public Core(int count, int doors){
+    public MonteCarlo(int count, int doors){
         super();
         this.Doors = doors;
         createRandoms();
         double probability =  super.doReprications(count); 
         System.out.println("Pravdepodobnost: " +  probability);
-    }
-
-    @Override
-    boolean doMonteCarlo() {
-        int carDoor = generateCarDoor();
-        int firstChoice = generateFirstChoice();
-        int animalDoor = generateAnimalDoor(carDoor);
-        //int secondChoice = generateSecondChoice(carDoor, firstChoice);
-        return carDoor == firstChoice;
     }
 
     private void createRandoms() {
@@ -45,15 +35,15 @@ public class Core extends Replications {
         generatorSecondChoice = new Random(generatorSeed.nextInt());      
     }
     
-    private int generateCarDoor(){
+    public int generateCarDoor(){
         return generatorCar.nextInt(Doors);
     }
     
-    private int generateFirstChoice(){
+    public int generateFirstChoice(){
         return generatorFirstChoice.nextInt(Doors);
     }
     
-    private int generateAnimalDoor(int carDoor){
+    public int generateAnimalDoor(int carDoor){
         while(true){
           int doorRnd = generatorAnimalDoor.nextInt(Doors);
           if(doorRnd != carDoor){
@@ -62,14 +52,15 @@ public class Core extends Replications {
         }
     }
     
-    private int generateSecondChoice(int carDoor, int firstChoice){
+    public int generateSecondChoice(int animalDoor, int firstChoice){
         while(true){
             int secondChoiceDoor = generatorSecondChoice.nextInt(Doors);
-            if(secondChoiceDoor != carDoor && secondChoiceDoor != firstChoice){
+            if(secondChoiceDoor != animalDoor && secondChoiceDoor != firstChoice){
                 return secondChoiceDoor;
             }
         }
     }
-    
-    
-}
+
+    @Override
+    abstract boolean doMonteCarlo();
+    }

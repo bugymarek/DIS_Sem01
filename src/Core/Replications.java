@@ -23,6 +23,7 @@ public abstract class Replications {
                 countTrue++;
             }
             this.currentProbability = countTrue/i;
+            //System.out.println(currentProbability);
         }
        return countTrue/count;
     }

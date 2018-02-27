@@ -5,7 +5,8 @@
  */
 package test;
 
-import Core.Core;
+import Core.TaskA;
+import Core.TaskB;
 
 /**
  *
@@ -17,7 +18,8 @@ public class test {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Core core = new Core(1000000,3);
+        TaskA a = new TaskA(100000, 10);      
+        TaskB b = new TaskB(100000, 10);
     }
     
 }
