@@ -9,18 +9,21 @@ package Core;
  *
  * @author Bugy
  */
-public class TaskB extends MonteCarlo{
+public class TaskB extends Simulation{
     
-     public TaskB(int count, int doors) {
-        super(count, doors);
+     public TaskB(int count, int doors, Command command) {
+        super(count, doors, command);
     }
 
     @Override
-    boolean doMonteCarlo() {
+    void simulate() {
         int carDoor = generateCarDoor();
         int firstChoice = generateFirstChoice();
         int animalDoor = openAnimalDoor(carDoor, firstChoice);
         int secondChoice = generateSecondChoice(animalDoor, firstChoice);
-        return carDoor == secondChoice;
+        if(carDoor == secondChoice){
+           incrementSuccess(); 
+           //System.out.println(getSuccess());
+        }
     }
 }
