@@ -5,6 +5,7 @@
  */
 package Core;
 
+import java.awt.image.ReplicateScaleFilter;
 import java.util.ArrayList;
 
 /**
@@ -16,15 +17,21 @@ public abstract class MonteCarlo {
     private double currentExperiment;
     private double success;
     private Command command;
+    private boolean runnable;
+    private double replicationsCount;
     
     public MonteCarlo(int count, Command c){
+        this.replicationsCount = count;
         this.currentProbability = 0;
         this.command = c;
         this.success = 0;
+        this.runnable = true;
     }
     
     public void doReprications(double count) {
+        this.replicationsCount = count;
         for (double i = 1; i <= count; i++) {
+            if(!runnable)return;
             simulate();
             this.currentExperiment = i;
             if(this.command != null) {
@@ -57,6 +64,14 @@ public abstract class MonteCarlo {
     
     public void incrementSuccess(){
         success++;
+    }
+
+    public void setRunnable(boolean runnable) {
+        this.runnable = runnable;
+    }
+
+    public double getReplicationsCount() {
+        return replicationsCount;
     }
     
     abstract void simulate();

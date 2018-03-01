@@ -5,6 +5,18 @@
  */
 package GUI;
 
+import Core.Command;
+import Core.Simulation;
+import Core.TaskA;
+import Core.TaskB;
+import java.awt.BorderLayout;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
 /**
  *
  * @author Bugy
@@ -32,13 +44,18 @@ public class AppMain extends javax.swing.JDialog {
         jSliderDoors = new javax.swing.JSlider();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldReplicationCount = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jSliderPercents = new javax.swing.JSlider();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabelDoorsCount = new javax.swing.JLabel();
         jLabelPercents = new javax.swing.JLabel();
+        JPanelChart = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabelProbabilityA = new javax.swing.JLabel();
+        jLabelProbabilityB = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -55,9 +72,10 @@ public class AppMain extends javax.swing.JDialog {
 
         jLabel2.setText("Počet replikácií");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldReplicationCount.setText("1000000");
+        jTextFieldReplicationCount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldReplicationCountActionPerformed(evt);
             }
         });
 
@@ -71,6 +89,11 @@ public class AppMain extends javax.swing.JDialog {
         });
 
         jButton1.setText("Stop");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Štart");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -79,6 +102,21 @@ public class AppMain extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout JPanelChartLayout = new javax.swing.GroupLayout(JPanelChart);
+        JPanelChart.setLayout(JPanelChartLayout);
+        JPanelChartLayout.setHorizontalGroup(
+            JPanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        JPanelChartLayout.setVerticalGroup(
+            JPanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 494, Short.MAX_VALUE)
+        );
+
+        jLabel4.setText("Pavdepodobnosť prípadA:");
+
+        jLabel5.setText("Pavdepodobnosť prípadB:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,26 +124,41 @@ public class AppMain extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JPanelChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelDoorsCount))
-                    .addComponent(jSliderDoors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSliderPercents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelDoorsCount))
+                            .addComponent(jSliderDoors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldReplicationCount, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSliderPercents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelPercents)))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPercents)))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabelProbabilityA)
+                        .addGap(243, 243, 243)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelProbabilityB)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -125,29 +178,91 @@ public class AppMain extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSliderPercents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSliderDoors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(495, Short.MAX_VALUE))
+                            .addComponent(jSliderDoors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldReplicationCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabelProbabilityA)
+                    .addComponent(jLabelProbabilityB))
+                .addGap(18, 18, 18)
+                .addComponent(JPanelChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldReplicationCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldReplicationCountActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldReplicationCountActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        jButton2.setEnabled(false);
+        int count = Integer.parseInt(jTextFieldReplicationCount.getText());
+        int doors = jSliderDoors.getValue();
+        int cutPercents = jSliderPercents.getValue();
+
+        if (chart != null) {
+            chart = new Chart(JPanelChart);
+        }
+
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                taskA = new TaskA(count, doors, null);
+                Command c = createCommand(taskA, indexA, cutPercents);
+                taskA.setCommand(c);
+                taskA.replicate();
+                jButton2.setEnabled(true);
+            }
+        });
+        t1.start();
+
+        Thread t2 = new Thread(new Runnable() {
+            public void run() {
+                taskB = new TaskB(count, doors, null);
+                Command c = createCommand(taskB, indexB, cutPercents);
+                taskB.setCommand(c);
+                taskB.replicate();
+                jButton2.setEnabled(true);
+            }
+        });
+        t2.start();
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private Command createCommand(Simulation task, int index, int cutPercents) {
+        Command c = new Command(task) {
+            @Override
+            public void run() {
+                double firstReplication = task.getReplicationsCount() / 100 * cutPercents;
+                if (task.getCurrentExperiment() > firstReplication) {
+                    chart.addValueToSeries(index, task.getCurrentExperiment(), task.getCurrentProbability());                   
+                    if(index == indexA){
+                       // System.out.println(task.getCurrentProbability());
+                        jLabelProbabilityA.setText(Double.toString(task.getCurrentProbability()));
+                    }else{
+                        //jLabelProbabilityB.setText(""+task.getCurrentProbability());
+                    }
+                }
+            }
+        };
+        return c;
+    }
 
     private void jSliderDoorsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderDoorsStateChanged
         jLabelDoorsCount.setText(Integer.toString(jSliderDoors.getValue()));
     }//GEN-LAST:event_jSliderDoorsStateChanged
 
     private void jSliderPercentsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderPercentsStateChanged
-       jLabelPercents.setText(Integer.toString(jSliderPercents.getValue()));
+        jLabelPercents.setText(Integer.toString(jSliderPercents.getValue()));
     }//GEN-LAST:event_jSliderPercentsStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        taskA.setRunnable(false);
+        taskB.setRunnable(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,20 +307,31 @@ public class AppMain extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPanelChart;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelDoorsCount;
     private javax.swing.JLabel jLabelPercents;
+    private javax.swing.JLabel jLabelProbabilityA;
+    private javax.swing.JLabel jLabelProbabilityB;
     private javax.swing.JSlider jSliderDoors;
     private javax.swing.JSlider jSliderPercents;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldReplicationCount;
     // End of variables declaration//GEN-END:variables
+    private Chart chart;
+    private Simulation taskA;
+    private Simulation taskB;
+    private final int indexA = 0;
+    private final int indexB = 1;
 
     private void setUp() {
         jLabelDoorsCount.setText(Integer.toString(jSliderDoors.getValue()));
         jLabelPercents.setText(Integer.toString(jSliderPercents.getValue()));
+        chart = new Chart(JPanelChart);
     }
 }
