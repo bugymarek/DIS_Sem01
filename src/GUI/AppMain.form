@@ -27,7 +27,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="JPanelChart" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -64,12 +64,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabelProbabilityA" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
+                      <Component id="jTextFieldProbabilityA" min="-2" pref="260" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabelProbabilityB" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jTextFieldProbabilityB" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -103,8 +102,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelProbabilityA" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabelProbabilityB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldProbabilityB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldProbabilityA" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="JPanelChart" max="32767" attributes="0"/>
@@ -185,7 +184,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="494" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="488" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -200,9 +199,9 @@
         <Property name="text" type="java.lang.String" value="Pavdepodobnos&#x165; pr&#xed;padB:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelProbabilityA">
+    <Component class="javax.swing.JTextField" name="jTextFieldProbabilityB">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabelProbabilityB">
+    <Component class="javax.swing.JTextField" name="jTextFieldProbabilityA">
     </Component>
   </SubComponents>
 </Form>

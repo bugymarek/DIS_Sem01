@@ -54,8 +54,8 @@ public class AppMain extends javax.swing.JDialog {
         JPanelChart = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabelProbabilityA = new javax.swing.JLabel();
-        jLabelProbabilityB = new javax.swing.JLabel();
+        jTextFieldProbabilityB = new javax.swing.JTextField();
+        jTextFieldProbabilityA = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -110,7 +110,7 @@ public class AppMain extends javax.swing.JDialog {
         );
         JPanelChartLayout.setVerticalGroup(
             JPanelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 494, Short.MAX_VALUE)
+            .addGap(0, 488, Short.MAX_VALUE)
         );
 
         jLabel4.setText("Pavdepodobnosť prípadA:");
@@ -153,12 +153,11 @@ public class AppMain extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelProbabilityA)
-                        .addGap(243, 243, 243)
+                        .addComponent(jTextFieldProbabilityA, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelProbabilityB)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldProbabilityB)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,8 +183,8 @@ public class AppMain extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jLabelProbabilityA)
-                    .addComponent(jLabelProbabilityB))
+                    .addComponent(jTextFieldProbabilityB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldProbabilityA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(JPanelChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -238,13 +237,15 @@ public class AppMain extends javax.swing.JDialog {
             public void run() {
                 double firstReplication = task.getReplicationsCount() / 100 * cutPercents;
                 if (task.getCurrentExperiment() > firstReplication) {
-                    chart.addValueToSeries(index, task.getCurrentExperiment(), task.getCurrentProbability());                   
-                    if(index == indexA){
-                       // System.out.println(task.getCurrentProbability());
-                        jLabelProbabilityA.setText(Double.toString(task.getCurrentProbability()));
-                    }else{
-                        //jLabelProbabilityB.setText(""+task.getCurrentProbability());
+                    if(task.getCurrentExperiment()%task.getModulo() == 0){
+                        chart.addValueToSeries(index, task.getCurrentExperiment(), task.getCurrentProbability());
+                        if (index == indexA) {
+                            jTextFieldProbabilityA.setText(Double.toString(task.getCurrentProbability()));
+                        } else {
+                            jTextFieldProbabilityB.setText(Double.toString(task.getCurrentProbability()));
+                        }
                     }
+                                          
                 }
             }
         };
@@ -317,10 +318,10 @@ public class AppMain extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelDoorsCount;
     private javax.swing.JLabel jLabelPercents;
-    private javax.swing.JLabel jLabelProbabilityA;
-    private javax.swing.JLabel jLabelProbabilityB;
     private javax.swing.JSlider jSliderDoors;
     private javax.swing.JSlider jSliderPercents;
+    private javax.swing.JTextField jTextFieldProbabilityA;
+    private javax.swing.JTextField jTextFieldProbabilityB;
     private javax.swing.JTextField jTextFieldReplicationCount;
     // End of variables declaration//GEN-END:variables
     private Chart chart;

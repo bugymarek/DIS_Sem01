@@ -19,6 +19,7 @@ public abstract class MonteCarlo {
     private Command command;
     private boolean runnable;
     private double replicationsCount;
+    private final int modulo = 10;
     
     public MonteCarlo(int count, Command c){
         this.replicationsCount = count;
@@ -73,6 +74,11 @@ public abstract class MonteCarlo {
     public double getReplicationsCount() {
         return replicationsCount;
     }
+
+    public int getModulo() {
+        return modulo;
+    }
+    
     
     abstract void simulate();
 }
