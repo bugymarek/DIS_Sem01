@@ -9,11 +9,6 @@ package Core;
  *
  * @author Bugy
  */
-public abstract class Command {
-    private Simulation Task;
-    
-    public Command(Simulation task){
-        this.Task = task;
-    }
+public abstract class Command {   
     public abstract void run();
 }

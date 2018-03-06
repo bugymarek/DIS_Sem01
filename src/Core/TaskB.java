@@ -11,19 +11,19 @@ package Core;
  */
 public class TaskB extends Simulation{
     
-     public TaskB(int count, int doors, Command command) {
-        super(count, doors, command);
+     public TaskB(int count, int doors) {
+        super(count, doors);
     }
 
     @Override
     void simulate() {
+        createDoors();
         int carDoor = generateCarDoor();
-        int firstChoice = generateFirstChoice();
-        int animalDoor = openAnimalDoor(carDoor, firstChoice);
-        int secondChoice = generateSecondChoice(animalDoor, firstChoice);
+        generateFirstChoice();
+        openAnimalDoor();
+        int secondChoice = generateSecondChoice();
         if(carDoor == secondChoice){
            incrementSuccess(); 
-           //System.out.println(getSuccess());
         }
     }
 }

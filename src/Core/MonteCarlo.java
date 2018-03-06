@@ -4,27 +4,21 @@
  * and open the template in the editor.
  */
 package Core;
-
-import java.awt.image.ReplicateScaleFilter;
-import java.util.ArrayList;
-
 /**
  *
  * @author Bugy
  */
 public abstract class MonteCarlo {
-    private double currentProbability; 
     private double currentExperiment;
     private double success;
     private Command command;
     private boolean runnable;
     private double replicationsCount;
-    private final int modulo = 10;
+    private final int modulo = 1000;
     
-    public MonteCarlo(int count, Command c){
+    public MonteCarlo(int count){
         this.replicationsCount = count;
-        this.currentProbability = 0;
-        this.command = c;
+        this.command = null;
         this.success = 0;
         this.runnable = true;
     }
@@ -44,12 +38,6 @@ public abstract class MonteCarlo {
     public double getCurrentProbability() {
         return success/currentExperiment;
     }
-
-    public void setCurrentProbability(double currentProbability) {
-        this.currentProbability = currentProbability;
-    }
-    
-    
 
     public void setCommand(Command command) {
         this.command = command;
@@ -78,7 +66,6 @@ public abstract class MonteCarlo {
     public int getModulo() {
         return modulo;
     }
-    
-    
+      
     abstract void simulate();
 }

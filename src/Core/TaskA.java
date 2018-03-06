@@ -10,19 +10,19 @@ package Core;
  * @author Bugy
  */
 public class TaskA extends Simulation{
-
-    public TaskA(int count, int doors, Command command) {
-        super(count, doors, command);
+    
+    public TaskA(int count, int doors) {
+        super(count, doors);
     }
 
     @Override
-    public void simulate() {
+    void simulate() {
+        createDoors();
         int carDoor = generateCarDoor();
         int firstChoice = generateFirstChoice();
         if(carDoor == firstChoice){
            incrementSuccess(); 
-           //System.out.println(getSuccess());
-        }    
+        } 
     }
     
 }
