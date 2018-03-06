@@ -20,15 +20,15 @@ import org.jfree.data.xy.XYSeriesCollection;
  */
 public class Chart {
     private final XYSeriesCollection data;
+    private JFreeChart chart;
     
     public Chart(JPanel panel){
         data = new XYSeriesCollection();
         XYSeries seriesA = new XYSeries("Pripad A");
         XYSeries seriesB = new XYSeries("Pripad B");
-        data.addSeries(seriesA);              
-        
+        data.addSeries(seriesA);                     
         data.addSeries(seriesB);
-        JFreeChart chart = ChartFactory.createXYLineChart(
+        chart = ChartFactory.createXYLineChart(
             "Úspešne vyhratie automobilu",
                 "Počet replikácií", // x-axis Label
                 "Pravdepodobnosť", // y-axis Label
@@ -47,5 +47,9 @@ public class Chart {
     
     public void addValueToSeries(int index, double x, double y){
         data.getSeries(index).add(x, y);      
+    }
+
+    void changeRange(double minValue, double maxValue) {
+        chart.getXYPlot().getRangeAxis().setRange(minValue, maxValue);
     }
 }

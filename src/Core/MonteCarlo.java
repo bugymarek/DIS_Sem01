@@ -15,12 +15,16 @@ public abstract class MonteCarlo {
     private boolean runnable;
     private double replicationsCount;
     private final int modulo = 1000;
+    private double minValue;
+    private double maxValue;
     
     public MonteCarlo(int count){
         this.replicationsCount = count;
         this.command = null;
         this.success = 0;
         this.runnable = true;
+        this.minValue = 1;
+        this.maxValue = 0;
     }
     
     public void doReprications(double count) {
@@ -65,6 +69,26 @@ public abstract class MonteCarlo {
 
     public int getModulo() {
         return modulo;
+    }
+    
+    public void setMinMax(){
+        if(getCurrentProbability() < minValue){
+            minValue = getCurrentProbability();
+        }
+        if(getCurrentProbability() > maxValue){
+            maxValue = getCurrentProbability();
+        }
+        if(minValue == maxValue){
+            maxValue += 0.01;
+        }          
+    }
+
+    public double getMinValue() {
+        return minValue;
+    }
+
+    public double getMaxValue() {
+        return maxValue;
     }
       
     abstract void simulate();

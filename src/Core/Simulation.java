@@ -34,11 +34,10 @@ public abstract class Simulation extends MonteCarlo {
 
     public void replicate() {
         super.doReprications(ReplicationCount);
-        //System.out.println("Pravdepodobnost: " +  probability);
     }
 
     private void createRandoms() {
-        generatorSeed = new Random(100);
+        generatorSeed = new Random();
         generatorCar = new Random(generatorSeed.nextInt());
         generatorFirstChoice = new Random(generatorSeed.nextInt());
         generatorOpenAnimalDoor = new Random(generatorSeed.nextInt());
@@ -47,11 +46,9 @@ public abstract class Simulation extends MonteCarlo {
     }
 
     public int generateCarDoor() {
-        //System.out.println("-----------------------------------------------------");
         int carDoor = generatorCar.nextInt(availableModeratorDoors.size());
         //System.out.println("Auto: " + carDoor);
         availableModeratorDoors.remove(carDoor);
-        //printArr("Mozne dvere pre moderatora", availableModeratorDoors);
         return carDoor;
     }
 
@@ -65,9 +62,7 @@ public abstract class Simulation extends MonteCarlo {
                 break;
             }
         }
-        //printArr("Mozne dvere pre moderatora", availableModeratorDoors);
         availableCompetitorDoors.remove(firstChoice);
-        //printArr("Mozne dvere pre sutaziaceho", availableCompetitorDoors);
         return firstChoice;
     }
 
@@ -77,11 +72,10 @@ public abstract class Simulation extends MonteCarlo {
             // competitor choice door where is car
             doorRndIndex = generatorOpenAnimalDoor.nextInt(availableModeratorDoors.size());
         } else {
-            // // competitor choice door where is not car, so we heve to use other random generator
+            // competitor choice door where is not car, so we heve to use other random generator
             doorRndIndex = generatorOpenAnimalDoor2.nextInt(availableModeratorDoors.size());
         }
         int doorOpen = availableModeratorDoors.get(doorRndIndex);
-        //System.out.println("Moderator otvoril: " + doorOpen);
         for (int i = 0; i < availableCompetitorDoors.size(); i++) {
             if (availableCompetitorDoors.get(i) == doorOpen) {
                 availableCompetitorDoors.remove(i);
@@ -105,15 +99,5 @@ public abstract class Simulation extends MonteCarlo {
             availableModeratorDoors.add(i);
             availableCompetitorDoors.add(i);
         }
-    }
-
-    private void printArr(String name, ArrayList<Integer> arr) {
-        System.out.print(name);
-        System.out.print("[ ");
-        for (int doorNumber : arr) {
-            System.out.print(doorNumber);
-            System.out.print(" , ");
-        }
-        System.out.println(" ]");
     }
 }

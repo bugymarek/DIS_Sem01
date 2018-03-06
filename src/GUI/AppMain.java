@@ -217,6 +217,8 @@ public class AppMain extends javax.swing.JDialog {
         int doors = jSliderDoors.getValue();
         int cutPercents = jSliderPercents.getValue();
         int comboboxIndex = jComboBox1.getSelectedIndex();
+        min = 1;
+        max = 0;
 
         if (chart != null) {
             chart = new Chart(JPanelChart);
@@ -254,11 +256,14 @@ public class AppMain extends javax.swing.JDialog {
                 if (task.getCurrentExperiment() > firstReplication) {
                     if (task.getCurrentExperiment() % task.getModulo() == 0) {
                         chart.addValueToSeries(index, task.getCurrentExperiment(), task.getCurrentProbability());
-                        if (index == indexA) {
+                        task.setMinMax();
+                        setMinMax(task.getMinValue(), task.getMaxValue());
+                        if (index == indexA) {                        
                             jTextFieldProbabilityA.setText(Double.toString(task.getCurrentProbability()));
                         } else {
                             jTextFieldProbabilityB.setText(Double.toString(task.getCurrentProbability()));
                         }
+                        chart.changeRange(min, max);
                     }
 
                 }
@@ -316,17 +321,15 @@ public class AppMain extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AppMain dialog = new AppMain(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            AppMain dialog = new AppMain(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
@@ -353,6 +356,8 @@ public class AppMain extends javax.swing.JDialog {
     private Simulation taskB;
     private final int indexA = 0;
     private final int indexB = 1;
+    private double min = 1;
+    private double max = 0;
 
     private void setUp() {
         jLabelDoorsCount.setText(Integer.toString(jSliderDoors.getValue()));
@@ -362,5 +367,16 @@ public class AppMain extends javax.swing.JDialog {
         jTextFieldProbabilityB.setEditable(false);
         jTextFieldProbabilityB.setForeground(Color.red);
         chart = new Chart(JPanelChart);
+    }
+    private void setMinMax(double taskMin, double taskMax){
+        if(taskMin < min){
+            min = taskMin;
+        }
+        if(taskMax > max){
+            max = taskMax;
+        }
+        if(min == max){
+            max += 0.01;
+        }    
     }
 }
