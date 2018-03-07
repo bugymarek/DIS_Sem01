@@ -79,7 +79,7 @@ public abstract class MonteCarlo {
             maxValue = getCurrentProbability();
         }
         if(minValue == maxValue){
-            maxValue += 0.01;
+            maxValue += 0.0000000001;
         }          
     }
 

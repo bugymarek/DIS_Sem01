@@ -376,7 +376,7 @@ public class AppMain extends javax.swing.JDialog {
             max = taskMax;
         }
         if(min == max){
-            max += 0.01;
+            max += 0.0000000001;
         }    
     }
 }

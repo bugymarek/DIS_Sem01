@@ -11,6 +11,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -21,6 +23,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class Chart {
     private final XYSeriesCollection data;
     private JFreeChart chart;
+    private ChartPanel chartPanel;
     
     public Chart(JPanel panel){
         data = new XYSeriesCollection();
@@ -38,15 +41,28 @@ public class Chart {
                 true, // Use tooltips
                 false // Configure chart to generate URLs?
         );
+        XYPlot plot = (XYPlot)chart.getPlot();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 
-        ChartPanel chartPanel = new ChartPanel(chart);
+
+        // "0" is the line plot
+        renderer.setSeriesLinesVisible(0, true);
+        renderer.setSeriesShapesVisible(0, false);
+
+        // "1" is the scatter plot
+        renderer.setSeriesLinesVisible(1, true);
+        renderer.setSeriesShapesVisible(1, false);
+
+        plot.setRenderer(renderer);
+        chartPanel = new ChartPanel(chart); 
+        panel.removeAll();
         panel.setLayout(new java.awt.BorderLayout());        
         panel.add(chartPanel, BorderLayout.CENTER);
         panel.validate();
     }
     
     public void addValueToSeries(int index, double x, double y){
-        data.getSeries(index).add(x, y);      
+        data.getSeries(index).add(x, y);
     }
 
     void changeRange(double minValue, double maxValue) {
